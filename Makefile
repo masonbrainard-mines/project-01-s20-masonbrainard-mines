@@ -2,13 +2,18 @@
 #MasonBrainard 2/13/20
 
 CXX = g++
+CXXFLAGS = -Wall -g
 
-OBJS = 
+shell: shell.o history.o alias.o parser.o builtin.o
+	$(CXX) $(CXXFLAGS) -o shell shell.o history.o alias.o parser.o builtin.o
 
-g++ -c shell.cc 
-g++ -c history.cc
-g++ -c alias.cc
-g++ -c parser.cc
-g++ -c builtin.cc
+shell.o: shell.cc history.hh alias.hh parser.hh builtin.hh
+	$(CXX) $(CXXFLAGS) -c shell.cc
 
-g++ -o run-shell shell.o history.o alias.o parser.o builtin.o
+builtin.o: builtin.hh history.hh alias.hh parser.hh
+
+history.o: history.hh
+
+alias.o: alias.hh
+
+parser.o: parser.hh
